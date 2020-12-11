@@ -4,17 +4,35 @@
   </head>
   <body>
 
+	<div id="resources">
+	</div>
+
 <script>
   let socket = new WebSocket("ws://127.0.0.1:9023");
 
   socket.onopen = function(e) {
 	  console.log("[WebSocket] Connection established");
 	  console.log("[WebSocket] Sending to server");
-	  socket.send("{\"Action\":{\"command\":\"VolDown\"}}");
+	  // socket.send("{\"Action\":{\"command\":\"VolDown\"}}");
+	  // socket.send("{\"QueryProviders\":{}}");
+	  socket.send("{\"QueryResources\":{}}");
   };
 
   socket.onmessage = function(event) {
 	  console.log(`[WebSocket] Data received from server: ${event.data}`);
+
+	  response = JSON.parse(event.data)
+	  if (response.Resources) {
+		  resources_div = document.getElementById("resources");
+		  resources_div.innerHTML = ""
+
+		  response.Resources.forEach(r => {
+			  var res_element = document.createElement('div');
+			  res_element.innerHTML = r.name;
+
+			  resources_div.appendChild(res_element);
+		  });
+	  }
   };
 
   socket.onclose = function(event) {
