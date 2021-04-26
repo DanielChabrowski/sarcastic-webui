@@ -1,0 +1,30 @@
+html,
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+.server-error {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #ea8484;
+}
+
+#navbar {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    align-items: center;
+    background-color: #575757;
+}
+
+.control {
+    margin: 0 5px;
+}
+
+#currently-playing {
+    color: white;
+    font-size: 14px;
+}

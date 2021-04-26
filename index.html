@@ -1,52 +1,20 @@
 <html>
   <head>
 	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
   </head>
   <body>
+	<div id="navbar">
+	  <span id="control-play" class="control"><img src="icons/play.png"/></span>
+	  <span id="control-stop" class="control"><img src="icons/stop.png"/></span>
+	  <span id="control-pause" class="control"><img src="icons/pause.png"/></span>
+
+	  <span id="currently-playing"></span>
+	</div>
 
 	<div id="resources">
 	</div>
 
-<script>
-  let socket = new WebSocket("ws://127.0.0.1:9023");
-
-  socket.onopen = function(e) {
-	  console.log("[WebSocket] Connection established");
-	  console.log("[WebSocket] Sending to server");
-	  // socket.send("{\"Action\":{\"command\":\"VolDown\"}}");
-	  // socket.send("{\"QueryProviders\":{}}");
-	  socket.send("{\"QueryResources\":{}}");
-  };
-
-  socket.onmessage = function(event) {
-	  console.log(`[WebSocket] Data received from server: ${event.data}`);
-
-	  response = JSON.parse(event.data)
-	  if (response.Resources) {
-		  resources_div = document.getElementById("resources");
-		  resources_div.innerHTML = ""
-
-		  response.Resources.forEach(r => {
-			  var res_element = document.createElement('div');
-			  res_element.innerHTML = r.name;
-
-			  resources_div.appendChild(res_element);
-		  });
-	  }
-  };
-
-  socket.onclose = function(event) {
-	  if (event.wasClean) {
-		  console.log(`[WebSocket] Connection closed, code=${event.code} reason=${event.reason}`);
-	  } else {
-		  console.log('[WebSocket] Connection died');
-	  }
-  };
-
-  socket.onerror = function(error) {
-	  console.log(`[WebSocket] ${error.message}`);
-  };
-</script>
-
+	<script src="script.js" defer></script>
   </body>
 </html>
